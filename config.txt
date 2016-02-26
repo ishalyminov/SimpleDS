@@ -1,6 +1,7 @@
 Dialogues=1
 Verbose=true
 Language=english
+UserClass=simpleDS.interaction.SimpleUser
 SysResponses=resources/%Language%/SysResponses.txt
 UsrResponses=resources/%Language%/UsrResponses.txt
 SlotValues=resources/%Language%/SlotValues.txt
@@ -8,7 +9,7 @@ DemonstrationsPath=data/%Language%
 DemonstrationsFile=models/demonstrations.arff
 MinimumProbability=0.001
 SlotsToConfirm=3
-NoiseLevel=0
+NoiseLevel=0.2
 OutputPath=results
 
 AddressPort=ws://localhost:8082/simpleds

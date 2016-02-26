@@ -109,6 +109,20 @@ public class StringUtil {
 	
 		return template;
 	}
+
+	public static String getTemplateFromList(String templates, int index) {
+		ArrayList<String> list = StringUtil.getArrayListFromString(templates, "|");
+		String template = null;
+
+		if (list.size() == 1) {
+			template = list.get(0);
+
+		} else {
+			template = list.get(index);
+		}
+
+		return template;
+	}
 	
 	public static void expandAbstractKeyValuePairs(HashMap<String,String> collection) {
 		try {

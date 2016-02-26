@@ -71,7 +71,7 @@ public class SimpleDS {
 		for (int i=1; i<=configParser.numDialogues; i++) {
 			environment.interactionPolicy.resetUserInfo(environment.userSimulator);
 			int steps = 1;
-			while(true) {		
+			while(true) {
 				dict.put("action_sys_key", getSystemAction_Key(steps, i, false));
 				dict.put("action_sys_val", getSystemAction_Val(dict.get("action_sys_key")));
 				dict.put("response_sys", getSystemResponse(dict.get("action_sys_key")));

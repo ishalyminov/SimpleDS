@@ -59,7 +59,7 @@ public class SimpleAgent extends Thread {
 						sendMessage(numInputOutputs);
 						
 					} else if (action.startsWith("params")) {
-						ArrayList<String> list = StringUtil.getArrayListFromString(action, "=,");						
+						ArrayList<String> list = StringUtil.getArrayListFromString(action, "=,");
 						for (int i=0; i<list.size(); i++) {
 							if (i==3) executionMode = list.get(3);
 							else if (i==4) dialogues = list.get(4);

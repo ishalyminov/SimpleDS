@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class ConfigParser {
 	private HashMap<String,String> configurations;
-	private final String LANGUAGES = "english,german,spanish";
+	private final String LANGUAGES = "english"; // "english,german,spanish"
 	public boolean verbose = false;
 	public int numDialogues = 0;
 

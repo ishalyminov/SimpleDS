@@ -12,14 +12,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import simpleDS.util.IOUtil;
-import simpleDS.util.Logger;
 import simpleDS.util.StringUtil;
 
 public class SimpleUserSimulator {
-	private HashMap<String,String> actions;
-	private HashMap<String,String> slots;
-	private HashMap<String,String> usrGoal;
-	private boolean verbose = false;
+	public HashMap<String,String> actions;
+	public HashMap<String,String> slots;
+	public HashMap<String,String> usrGoal;
+	public boolean verbose = false;
 
 	public SimpleUserSimulator(HashMap<String,String> configurations) {
 		verbose = configurations.get("Verbose").equals("true") ? true : false;
@@ -59,7 +58,7 @@ public class SimpleUserSimulator {
 		String action = actions.get(action_sys_key);
 
 		if (action == null) { 
-			return ""; // silence	
+			return ""; // silence
 
 		} else if (action.equals("Confirm($yesno)")) {
 			action = validConfirmation(action_sys_val) ? "Confirm(yes)" : "Confirm(no)";

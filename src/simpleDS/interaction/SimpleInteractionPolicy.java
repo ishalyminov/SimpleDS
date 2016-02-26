@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import simpleDS.util.IOUtil;
-import simpleDS.util.Logger;
 import simpleDS.util.StringUtil;
 
 public class SimpleInteractionPolicy {

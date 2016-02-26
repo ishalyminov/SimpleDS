@@ -12,11 +12,14 @@
 package simpleDS.learning;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import simpleDS.interaction.SimpleInteractionPolicy;
 import simpleDS.interaction.SimpleUserSimulator;
+import simpleDS.interaction.SimpleUser;
 import simpleDS.util.IOUtil;
 import simpleDS.util.Logger;
 import simpleDS.util.StringUtil;
@@ -37,14 +40,16 @@ public class SimpleEnvironment {
 		String demonstrationsPath = configurations.get("DemonstrationsPath");
 		String demonstrationsFile = configurations.get("DemonstrationsFile");
 		String minimumProbability = configurations.get("MinimumProbability");
-		
-		userSimulator = new SimpleUserSimulator(configurations);
+		userSimulator = createUser(configurations);
+		if (userSimulator == null) {
+			System.exit(1);
+		}
 		interactionPolicy = new SimpleInteractionPolicy(configurations);
 		vocabulary = new Vocabulary(sysResponsesFile, usrResponsesFile, slotsFile);
 		generateTrainingDataFromDemonstrations(demonstrationsPath, demonstrationsFile);
 		interactionPolicy.simpleActions.createActionPredictor(demonstrationsFile, minimumProbability);
 	}
-	
+
 	public String getNumInputOutputs() {
 		int inputs = vocabulary.getVocabularySize();
 		int outputs = interactionPolicy.simpleActions.getActionSetSize();
@@ -196,5 +201,33 @@ public class SimpleEnvironment {
 			Logger.error(this.getClass().getName(), "saveDemonstrationsData", "Couldn't store training data.");
 			e.printStackTrace();
 		}
+	}
+
+	private SimpleUserSimulator createUser(HashMap<String, String> inConfiguration) {
+		Class<?> userClass = null;
+		try {
+			userClass = Class.forName(inConfiguration.get("UserClass"));
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		Constructor<?> userConstructor = null;
+		try {
+			userConstructor = userClass.getConstructor(inConfiguration.getClass());
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+			return null;
+		}
+		SimpleUserSimulator result = null;
+		try {
+			result = (SimpleUserSimulator)userConstructor.newInstance(inConfiguration);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
